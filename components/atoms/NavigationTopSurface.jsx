@@ -1,8 +1,5 @@
 import { cn } from "@/lib/utils";
-export default function NavigationTopSurface({
-	children,
-	className,
-}) {
+export default function NavigationTopSurface({ children, className }) {
 	return (
 		<div
 			className={cn(
