@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import Image from "next/image";
@@ -5,6 +6,7 @@ import Typography from "./ui/Typography";
 import { formatRupiah } from "@/utils/formater";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { useRouter } from "next/navigation";
 
 function BigCardEvent({
 	image,
@@ -13,11 +15,17 @@ function BigCardEvent({
 	title,
 	place,
 	description,
+	id,
 	...props
 }) {
+	const router = useRouter();
 	const { day = "DAY", Month = "MON TANGGAL" } = date || {};
+	const onClickCard = () => {
+		router.push(`/ticket/detail-event?id=${id}`);
+	};
 	return (
 		<Card
+			onClick={onClickCard}
 			className={
 				"px-[15px] bg-white space-y-8 pt-[14.5px] h-fit pb-[13.5px] w-full max-w-[308px]"
 			}

@@ -7,6 +7,7 @@ export const UPCOMING_EVENT_CONTENT = [
 		title: "Judul Event",
 		place: "BANDUNG",
 		description: "Lorem ipsum dolor sit amet consectet",
+		id: 123,
 	},
 	{
 		image: Banner1,
@@ -14,6 +15,7 @@ export const UPCOMING_EVENT_CONTENT = [
 		title: "Judul Event",
 		place: "BANDUNG",
 		description: "Lorem ipsum dolor sit amet consectet",
+		id: 124,
 	},
 	{
 		image: Banner1,
@@ -21,5 +23,6 @@ export const UPCOMING_EVENT_CONTENT = [
 		title: "Judul Event",
 		place: "BANDUNG",
 		description: "Lorem ipsum dolor sit amet consectet",
+		id: 125,
 	},
 ];
