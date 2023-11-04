@@ -18,17 +18,14 @@ export default function Page() {
 		(callbackUrlParams.startsWith("/") || callbackUrlParams.startsWith("http")
 			? callbackUrlParams
 			: undefined) || "/";
-	const onValid = (data) => {
+	const onValid = async (data) => {
 		setOpen(true);
-		Promise.resolve(
-			setTimeout(async () => {
-				await signIn("credentials", {
-					...data,
-					redirect: true,
-					callbackUrl,
-				});
-			}, 1500),
-		);
+		await new Promise((resolve) => setTimeout(resolve, 1500));
+		await signIn("credentials", {
+			...data,
+			redirect: true,
+			callbackUrl,
+		});
 	};
 	return (
 		<section className="space-y-10 pb-[60px] container">

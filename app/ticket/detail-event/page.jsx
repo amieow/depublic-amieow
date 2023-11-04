@@ -1,15 +1,16 @@
 "use client";
 
 import NullLoading from "@/components/atoms/DefaulLoading";
+import Divider from "@/components/atoms/ui/divider";
 import RootFooter from "@/components/organisme/RootFooter";
 import BluredWhenLogout, {
 	PlaceholderBlurry,
 } from "@/components/organisme/ticket/detail-event/BluredWhenLogout";
-import ChoosePackageDE from "@/components/organisme/ticket/detail-event/ChoosePackageDE";
 import HeroDE from "@/components/organisme/ticket/detail-event/HeroDE";
 import HighlightDE from "@/components/organisme/ticket/detail-event/HighlightDE";
 import ImportantInfo from "@/components/organisme/ticket/detail-event/ImportantInfo";
 import NavSectionDetailEvent from "@/components/organisme/ticket/detail-event/NavSectionDE";
+import PackageDE from "@/components/organisme/ticket/detail-event/PackageDE";
 import ProtectedSectionDE from "@/components/organisme/ticket/detail-event/ProtectedSectionDE";
 import {
 	HIGHTLIGHT_TEXT_DE,
@@ -58,7 +59,8 @@ export default function Page() {
 									<ImportantInfo {...INFO_PENTING_DE} />
 								</div>
 								<ProtectedSectionDE isLogin={isLogin}>
-									<ChoosePackageDE />
+									<Divider className={"bg-[#F4F4F4]"} />
+									<PackageDE />
 								</ProtectedSectionDE>
 							</BluredWhenLogout>
 						</>

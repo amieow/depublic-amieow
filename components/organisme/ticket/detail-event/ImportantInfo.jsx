@@ -7,7 +7,7 @@ export default function ImportantInfo({ link, description, className }) {
 	return (
 		<section
 			className={cn(
-				"bg-secondary-50 mb-10 px-5 space-y-[20px] py-[30px]",
+				"bg-secondary-50 mb-10 px-[20px] space-y-[20px] py-[30px]",
 				className,
 			)}
 			id="info-penting">

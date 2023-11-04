@@ -13,18 +13,15 @@ const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const queryParams = useSearchParams();
-	const onValid = (data) => {
+	const onValid = async (data) => {
 		setOpen(true);
-		Promise.resolve(
-			setTimeout(async () => {
-				await signIn("credentials", {
-					username: data.username,
-					password: data.password,
-					redirect: true,
-					callbackUrl: queryParams.get("callbackUrl") || "/",
-				});
-			}, 1500),
-		);
+		await new Promise((resolve) => setTimeout(resolve, 1500));
+		await signIn("credentials", {
+			username: data.username,
+			password: data.password,
+			redirect: true,
+			callbackUrl,
+		});
 	};
 	return (
 		<section className="space-y-10 pb-[60px] container">
