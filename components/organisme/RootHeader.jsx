@@ -4,23 +4,10 @@ import React from "react";
 import Logo from "@/public/logo.png";
 import { Button } from "../atoms/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { IconAvatarBorder, IconMail } from "../atoms/ui/icon";
-import { signIn } from "next-auth/react";
 import NullLoading from "../atoms/DefaulLoading";
-
-const LogoutComponent = () => {
-	return (
-		<>
-			<Button
-				onClick={() => signIn()}
-				variant={"outline"}>
-				Sign In
-			</Button>
-			<Button>Sign Up</Button>
-		</>
-	);
-};
+import LogoutComponent from "./LogoutLeftNavbar";
 const LoginComponent = () => {
 	return (
 		<>
@@ -35,6 +22,7 @@ const LoginComponent = () => {
 };
 export default function RootHeader() {
 	const path = usePathname();
+	const params = useSearchParams();
 	const isLoginedPage = path.includes("login");
 	return (
 		<header className=" bg-[#ffffff]">
@@ -52,7 +40,9 @@ export default function RootHeader() {
 					{!isLoginedPage && (
 						<NullLoading
 							LoginComponent={<LoginComponent />}
-							LogoutComponent={<LogoutComponent />}
+							LogoutComponent={
+								<LogoutComponent path={path + "?" + params.toString()} />
+							}
 						/>
 					)}
 				</div>

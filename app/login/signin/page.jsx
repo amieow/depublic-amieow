@@ -13,6 +13,11 @@ const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const queryParams = useSearchParams();
+	const callbackUrlParams = queryParams.get("callbackUrl");
+	const callbackUrl =
+		(callbackUrlParams.startsWith("/") || callbackUrlParams.startsWith("http")
+			? callbackUrlParams
+			: undefined) || "/";
 	const onValid = (data) => {
 		setOpen(true);
 		Promise.resolve(
@@ -20,7 +25,7 @@ export default function Page() {
 				await signIn("credentials", {
 					...data,
 					redirect: true,
-					callbackUrl: queryParams.get("callbackUrl") || "/",
+					callbackUrl,
 				});
 			}, 1500),
 		);
@@ -49,7 +54,7 @@ export default function Page() {
 					href={{
 						pathname: "/login/signup",
 						query: {
-							callbackUrl: queryParams.get("callbackUrl") || "/",
+							callbackUrlParams,
 						},
 					}}>
 					<Typography

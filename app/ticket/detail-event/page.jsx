@@ -1,5 +1,6 @@
 "use client";
 
+import NullLoading from "@/components/atoms/DefaulLoading";
 import RootFooter from "@/components/organisme/RootFooter";
 import BluredWhenLogout, {
 	PlaceholderBlurry,
@@ -45,16 +46,24 @@ export default function Page() {
 			<NavSectionDetailEvent />
 			<main>
 				<HeroDE {...data} />
-				<BluredWhenLogout>
-					{!isLogin && <PlaceholderBlurry className={"-translate-y-1/3"} />}
-					<HighlightDE arrayTeks={HIGHTLIGHT_TEXT_DE} />
-					<div className="container">
-						<ImportantInfo {...INFO_PENTING_DE} />
-					</div>
-					<ProtectedSectionDE isLogin={isLogin}>
-						<ChoosePackageDE />
-					</ProtectedSectionDE>
-				</BluredWhenLogout>
+				<NullLoading
+					EquealComponent={
+						<>
+							<BluredWhenLogout>
+								{!isLogin && (
+									<PlaceholderBlurry className={"-translate-y-1/3"} />
+								)}
+								<HighlightDE arrayTeks={HIGHTLIGHT_TEXT_DE} />
+								<div className="container">
+									<ImportantInfo {...INFO_PENTING_DE} />
+								</div>
+								<ProtectedSectionDE isLogin={isLogin}>
+									<ChoosePackageDE />
+								</ProtectedSectionDE>
+							</BluredWhenLogout>
+						</>
+					}
+				/>
 			</main>
 			<RootFooter />
 		</>

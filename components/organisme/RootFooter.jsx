@@ -11,6 +11,7 @@ const TopLeftContent = () => (
 		<Image
 			className="mb-[25px]"
 			src={logoFillWhite}
+			alt=""
 		/>
 		<Typography
 			className={"text-primary-100 mb-[30px]"}
