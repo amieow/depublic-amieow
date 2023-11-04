@@ -7,6 +7,40 @@ import { formatRupiah } from "@/utils/formater";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+export function DisplayPlaceAndDateCard({
+	place,
+	day = "Day",
+	month = "MON TANGGAL",
+	className,
+}) {
+	return (
+		<div className={cn("flex items-center gap-2 mb-2 h-[20px]", className)}>
+			<div className="flex gap-[2px] items-center">
+				<Image
+					src={"/icon/location.svg"}
+					alt=""
+					width={20}
+					height={20}
+				/>
+				<Typography
+					className="text-neutral-500"
+					size={"label2"}>
+					{place}
+				</Typography>
+			</div>
+			<Separator
+				className=""
+				orientation="vertical"
+			/>
+			<Typography
+				size={"label2"}
+				className="text-primary-500"
+				thick={"medium"}>{`${day}, ${month}`}</Typography>
+		</div>
+	);
+}
 
 function BigCardEvent({
 	image,
@@ -19,13 +53,12 @@ function BigCardEvent({
 	...props
 }) {
 	const router = useRouter();
-	const { day = "DAY", Month = "MON TANGGAL" } = date || {};
 	const onClickCard = () => {
 		router.push(`/ticket/detail-event?id=${id}`);
 	};
+	const { day = "DAY", month = "MON TANGGAL" } = date || {};
 	return (
 		<Card
-			onClick={onClickCard}
 			className={
 				"px-[15px] bg-white space-y-8 pt-[14.5px] h-fit pb-[13.5px] w-full max-w-[308px]"
 			}
@@ -40,29 +73,11 @@ function BigCardEvent({
 				/>
 			</CardHeader>
 			<CardContent className={""}>
-				<div className="flex items-center gap-2 mb-2 h-5">
-					<div className="flex gap-[2px]">
-						<Image
-							src={"/icon/location.svg"}
-							alt=""
-							width={20}
-							height={20}
-						/>
-						<Typography
-							className="text-neutral-500"
-							size={"label2"}>
-							{place}
-						</Typography>
-					</div>
-					<Separator
-						className=""
-						orientation="vertical"
-					/>
-					<Typography
-						size={"label2"}
-						className="text-primary-500"
-						thick={"medium"}>{`${day}, ${Month}`}</Typography>
-				</div>
+				<DisplayPlaceAndDateCard
+					place={place}
+					day={day}
+					month={month}
+				/>
 				<Typography
 					className="mb-1 text-primary-900 "
 					thick={"bolder"}
@@ -86,6 +101,7 @@ function BigCardEvent({
 					</Typography>
 				</Typography>
 				<Button
+					onClick={onClickCard}
 					size="extraSmall"
 					className="bg-success-50 rounded-xl w-full px-5 text-success-900 font-medium">
 					Tersedia

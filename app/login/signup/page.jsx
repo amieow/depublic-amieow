@@ -1,33 +1,28 @@
 "use client";
 import Typography from "@/components/atoms/ui/Typography";
 import React, { useState } from "react";
-import { UserSchema } from "@/utils/validates/user/default";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { LoginForm } from "@/components/organisme/login/LoginForm";
-import { AuthStore } from "@/lib/state/auth";
+import { signUpSchema } from "@/utils/validates/login";
+import { signIn } from "next-auth/react";
 const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 	ssr: false,
 });
 export default function Page() {
 	const [open, setOpen] = useState(false);
-	const router = useRouter();
-	const signUpSchema = UserSchema.pick({
-		username: true,
-		password: true,
-		nomer_telephone: true,
-	});
-	const HandleLogin = AuthStore((state) => state.handleLogin);
+	const queryParams = useSearchParams();
 	const onValid = (data) => {
 		setOpen(true);
-		HandleLogin({
-			password: data.password,
-			email: data.email,
-		});
 		Promise.resolve(
-			setTimeout(() => {
-				router.push("/");
+			setTimeout(async () => {
+				await signIn("credentials", {
+					username: data.username,
+					password: data.password,
+					redirect: true,
+					callbackUrl: queryParams.get("callbackUrl") || "/",
+				});
 			}, 1500),
 		);
 	};
@@ -51,7 +46,13 @@ export default function Page() {
 				className="text-neutral-300 text-center"
 				thick={"medium"}>
 				Have an Account?{" "}
-				<Link href={"/login/signin"}>
+				<Link
+					href={{
+						pathname: "/login/signin",
+						query: {
+							callbackUrl: queryParams.get("callbackUrl") || "/",
+						},
+					}}>
 					<Typography
 						className="text-primary-500"
 						thick={"bolder"}

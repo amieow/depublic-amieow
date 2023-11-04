@@ -5,7 +5,7 @@ import RootFooter from "@/components/organisme/RootFooter";
 import BannerHome from "@/components/organisme/home/BannerHome";
 import Hero from "@/components/organisme/home/hero";
 import { BLOG_CONTENT_DISPLAY } from "@/contents/BlogContent";
-import { UPCOMING_EVENT_CONTENT } from "@/contents/UpcomingEventContent";
+import { UPCOMING_EVENT_CONTENT_BANNER } from "@/contents/UpcomingEventContent";
 
 export default function Home() {
 	return (
@@ -18,7 +18,7 @@ export default function Home() {
 					<EventGroup
 						title={"Upcoming Event"}
 						rootLink={"/ticket"}
-						data={UPCOMING_EVENT_CONTENT}
+						data={UPCOMING_EVENT_CONTENT_BANNER}
 					/>
 				</section>
 				<Divider />

@@ -30,13 +30,14 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
+	@apply bg-secondary-500;
 	border-radius: 1rem;
-	background: #797979;
+
 	transition: all 0.5s ease-in-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #222224;
+	@apply bg-secondary-300;
 }
 
 ::-webkit-scrollbar-track {

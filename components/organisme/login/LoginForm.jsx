@@ -1,32 +1,32 @@
+"use client";
+import FormControlWithPasswordIcon from "@/components/atoms/FormControlWithPasswordIcon";
 import { Button } from "@/components/atoms/ui/button";
 import {
 	Form,
-	FormControl,
 	FormField,
 	FormItem,
 	FormMessage,
 } from "@/components/atoms/ui/form";
-import { Input, InputPasswordIcon } from "@/components/atoms/ui/input";
 import { formatUpperFirstcharSplit } from "@/utils/formater";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 
+const TextFormSubmit = {
+	signin: {
+		label: "Sign In",
+		action: "/api/auth/callback/credentials",
+	},
+	signup: {
+		label: "Create Account",
+		action: "/api/auth/callback/credentials",
+	},
+};
 export const LoginForm = (props) => {
 	const ObjectDefaultValueSchema = props.ArrayObjectZod.reduce((acc, str) => {
 		acc[str] = "";
 		return acc;
 	}, {});
-	const TextFormSubmit = {
-		signin: {
-			label: "Sign In",
-			action: "/api/auth/callback/credentials",
-		},
-		signup: {
-			label: "Create Account",
-			action: "/api/auth/callback/credentials",
-		},
-	};
 	const form = useForm({
 		resolver: zodResolver(props.zod),
 		defaultValues: ObjectDefaultValueSchema,
@@ -41,7 +41,7 @@ export const LoginForm = (props) => {
 		<Form {...form}>
 			<form
 				method="post"
-				action={TextFormSubmit[props.page].action}
+				action={TextFormSubmit[props.page]?.action || ""}
 				className="space-y-10"
 				onSubmit={form.handleSubmit(props.onValid)}>
 				<div className="space-y-4">
@@ -54,19 +54,10 @@ export const LoginForm = (props) => {
 									const { className: cls, ...rest } = field;
 									return (
 										<FormItem>
-											<div className="relative">
-												<FormControl>
-													<Input
-														placeholder={key.placeholder}
-														{...rest}
-														type={key.type}
-														className={
-															"border-0 border-b rounded-none focus-visible:ring-0"
-														}
-													/>
-												</FormControl>
-												{key.type == "password" && <InputPasswordIcon />}
-											</div>
+											<FormControlWithPasswordIcon
+												{...key}
+												rest={rest}
+											/>
 											<FormMessage />
 										</FormItem>
 									);
@@ -78,7 +69,7 @@ export const LoginForm = (props) => {
 				<Button
 					type="submit"
 					size={"medium"}>
-					{TextFormSubmit[props.page].label}
+					{TextFormSubmit[props.page]?.label || ""}
 				</Button>
 			</form>
 		</Form>

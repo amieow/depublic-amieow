@@ -17,7 +17,7 @@ export default function Hero() {
 						src={UnionGroup}
 					/>
 				</div>
-				<div className="bg-white/50 flex rounded-xl gap-4 backdrop-blur-lg py-[11px] px-6">
+				<div className="bg-white/50 flex rounded-xl gap-4 items-center backdrop-blur-lg py-[11px] px-6">
 					<SearchIcon className="text-neutral-300" />
 					<Input
 						className="py-0 w-full h-fit border-0"

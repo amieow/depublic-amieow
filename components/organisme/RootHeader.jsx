@@ -6,24 +6,22 @@ import { Button } from "../atoms/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IconAvatarBorder, IconMail } from "../atoms/ui/icon";
-import { useStore } from "zustand";
-import { AuthStore } from "@/lib/state/auth";
+import { signIn } from "next-auth/react";
+import NullLoading from "../atoms/DefaulLoading";
 
-const WhenNotLoginedComponent = () => {
+const LogoutComponent = () => {
 	return (
 		<>
 			<Button
-				asChild
+				onClick={() => signIn()}
 				variant={"outline"}>
-				<Link href={"/login/signin"}>Sign In</Link>
+				Sign In
 			</Button>
-			<Button asChild>
-				<Link href={"/login/signup"}>Sign Up</Link>
-			</Button>
+			<Button>Sign Up</Button>
 		</>
 	);
 };
-const WhenLoginedComponent = () => {
+const LoginComponent = () => {
 	return (
 		<>
 			<Button size={"logo"}>
@@ -37,11 +35,7 @@ const WhenLoginedComponent = () => {
 };
 export default function RootHeader() {
 	const path = usePathname();
-	const isLoginedPage = path.includes("/login");
-	const isLogin = AuthStore((state) => state.isLogin);
-	const LeftComponent = isLogin
-		? WhenLoginedComponent
-		: WhenNotLoginedComponent;
+	const isLoginedPage = path.includes("login");
 	return (
 		<header className=" bg-[#ffffff]">
 			<div className="flex container justify-between h-[100px] items-center">
@@ -55,7 +49,12 @@ export default function RootHeader() {
 					/>
 				</Link>
 				<div className="flex gap-[11px]">
-					{!isLoginedPage && <LeftComponent />}
+					{!isLoginedPage && (
+						<NullLoading
+							LoginComponent={<LoginComponent />}
+							LogoutComponent={<LogoutComponent />}
+						/>
+					)}
 				</div>
 			</div>
 		</header>

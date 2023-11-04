@@ -2,28 +2,26 @@
 import Typography from "@/components/atoms/ui/Typography";
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import { UserSchema } from "@/utils/validates/user/default";
 import { LoginForm } from "@/components/organisme/login/LoginForm";
-import { AuthStore } from "@/lib/state/auth";
+import { signIn } from "next-auth/react";
+import { signInSchema } from "@/utils/validates/login";
 const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 	ssr: false,
 });
 export default function Page() {
 	const [open, setOpen] = useState(false);
-	const router = useRouter();
-	const HandleLogin = AuthStore((state) => state.handleLogin);
-	const signInSchema = UserSchema.pick({
-		username: true,
-		password: true,
-	});
+	const queryParams = useSearchParams();
 	const onValid = (data) => {
 		setOpen(true);
-		HandleLogin(data);
 		Promise.resolve(
-			setTimeout(() => {
-				router.push("/");
+			setTimeout(async () => {
+				await signIn("credentials", {
+					...data,
+					redirect: true,
+					callbackUrl: queryParams.get("callbackUrl") || "/",
+				});
 			}, 1500),
 		);
 	};
@@ -47,7 +45,13 @@ export default function Page() {
 				className="text-neutral-300 text-center"
 				thick={"medium"}>
 				Don’t have an Account?{" "}
-				<Link href={"/login/signup"}>
+				<Link
+					href={{
+						pathname: "/login/signup",
+						query: {
+							callbackUrl: queryParams.get("callbackUrl") || "/",
+						},
+					}}>
 					<Typography
 						className="text-primary-500"
 						thick={"bolder"}
