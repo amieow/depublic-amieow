@@ -17,7 +17,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body className={`${monsterat.variable} font-monsterat bg-[#C5C5C5]`}>
+			<body
+				className={`${monsterat.variable} -z-10 font-monsterat bg-[#C5C5C5]`}>
 				<AuthProviders>
 					<RootHeader />
 					{children}

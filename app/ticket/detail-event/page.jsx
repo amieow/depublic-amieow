@@ -34,7 +34,7 @@ export default function Page() {
 	return (
 		<>
 			<section
-				className="mb-10 container"
+				className="mb-10 container mt-[30px]"
 				id="banner">
 				<Image
 					alt=""

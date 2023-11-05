@@ -53,7 +53,7 @@ module.exports = {
 					900: "#000000",
 				},
 				surface: {
-					100: "#FFFFFF",
+					100: "#FFF",
 					200: "#FAFAFA",
 					300: "#FCF9F2",
 					500: "#FDF9F0",

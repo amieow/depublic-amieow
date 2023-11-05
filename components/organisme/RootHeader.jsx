@@ -25,8 +25,8 @@ export default function RootHeader() {
 	const params = useSearchParams();
 	const isLoginedPage = path.includes("login");
 	return (
-		<header className=" bg-[#ffffff]">
-			<div className="flex container justify-between h-[100px] items-center">
+		<header className=" bg-[#ffffff] shadow-lg">
+			<div className="flex container shadow-lg justify-between h-[100px] items-center">
 				<Link href={"/"}>
 					<Image
 						width={48}

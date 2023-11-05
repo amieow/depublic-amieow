@@ -27,7 +27,7 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
 			type={type}
 			className={cn(
 				typographyVariant,
-				"flex h-[63px] w-full text-2xl rounded-md border bg-transparent border-neutral-300 px-3 py-2 placeholder:text-neutral-300 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+				"flex h-[63px] w-full rounded-md border bg-transparent border-neutral-300 px-3 py-2 placeholder:text-neutral-300 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}
 			ref={ref}

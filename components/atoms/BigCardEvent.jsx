@@ -16,7 +16,11 @@ export function DisplayPlaceAndDateCard({
 	className,
 }) {
 	return (
-		<div className={cn("flex items-center gap-2 mb-2 h-[20px]", className)}>
+		<div
+			className={cn(
+				"flex items-center flex-shrink-0 gap-2 mb-2 h-[20px]",
+				className,
+			)}>
 			<div className="flex gap-[2px] items-center">
 				<Image
 					src={"/icon/location.svg"}
@@ -36,7 +40,7 @@ export function DisplayPlaceAndDateCard({
 			/>
 			<Typography
 				size={"label2"}
-				className="text-primary-500"
+				className="text-primary-500 shrink-0"
 				thick={"medium"}>{`${day}, ${month}`}</Typography>
 		</div>
 	);
@@ -96,7 +100,8 @@ function BigCardEvent({
 					<Typography
 						as="span"
 						thick="medium"
-						className="text-tertiary-500">
+						size={"paragraf2"}
+						className="text-tertiary-500 -translate-x-1">
 						{`/ 1 Person`}
 					</Typography>
 				</Typography>
