@@ -2,27 +2,23 @@
 import Typography from "@/components/atoms/ui/Typography";
 import React, { useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 import { LoginForm } from "@/components/organisme/login/LoginForm";
+import { signUpSchema } from "@/utils/validates/login";
 import { signIn } from "next-auth/react";
-import { signInSchema } from "@/utils/validates/login";
 const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 	ssr: false,
 });
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const queryParams = useSearchParams();
-	const callbackUrlParams = queryParams.get("callbackUrl");
-	const callbackUrl =
-		(callbackUrlParams.startsWith("/") || callbackUrlParams.startsWith("http")
-			? callbackUrlParams
-			: undefined) || "/";
 	const onValid = async (data) => {
 		setOpen(true);
 		await new Promise((resolve) => setTimeout(resolve, 1500));
 		await signIn("credentials", {
-			...data,
+			username: data.username,
+			password: data.password,
 			redirect: true,
 			callbackUrl,
 		});
@@ -34,24 +30,24 @@ export default function Page() {
 				<Typography
 					size={"subheading2"}
 					thick={"medium"}>
-					Welcome back!
+					Register for the better experience
 				</Typography>
 				<LoginForm
 					onValid={onValid}
-					page="signin"
-					ArrayObjectZod={Object.keys(signInSchema.keyof().Values)}
-					zod={signInSchema}
+					page="signup"
+					ArrayObjectZod={Object.keys(signUpSchema.keyof().Values)}
+					zod={signUpSchema}
 				/>
 			</div>
 			<Typography
 				className="text-neutral-300 text-center"
 				thick={"medium"}>
-				Don’t have an Account?{" "}
+				Have an Account?{" "}
 				<Link
 					href={{
-						pathname: "/login/signup",
+						pathname: "/signin",
 						query: {
-							callbackUrlParams,
+							callbackUrl: queryParams.get("callbackUrl") || "/",
 						},
 					}}>
 					<Typography

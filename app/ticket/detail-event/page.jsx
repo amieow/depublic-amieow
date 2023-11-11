@@ -15,19 +15,37 @@ import ProtectedSectionDE from "@/components/organisme/ticket/detail-event/Prote
 import {
 	HIGHTLIGHT_TEXT_DE,
 	INFO_PENTING_DE,
-	UPCOMING_EVENT_CONTENT,
+	UPCOMING_EVENT_CONTENT_BANNER,
 } from "@/contents/UpcomingEventContent";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect, useSearchParams } from "next/navigation";
 import React from "react";
 
+const DetailEvent = () => {
+	const { status } = useSession();
+	const isLogin = status == "authenticated";
+	return (
+		<>
+			<BluredWhenLogout>
+				{!isLogin && <PlaceholderBlurry className={"-translate-y-1/3"} />}
+				<HighlightDE arrayTeks={HIGHTLIGHT_TEXT_DE} />
+				<div className="container">
+					<ImportantInfo {...INFO_PENTING_DE} />
+				</div>
+				<ProtectedSectionDE isLogin={isLogin}>
+					<Divider className={"bg-[#F4F4F4]"} />
+					<PackageDE />
+				</ProtectedSectionDE>
+			</BluredWhenLogout>
+		</>
+	);
+};
+
 export default function Page() {
 	const searchParmas = useSearchParams();
 	const idParams = Number(searchParmas.get("id"));
-	const { status } = useSession();
-	const data = UPCOMING_EVENT_CONTENT.find((v) => v.id == idParams);
-	const isLogin = status == "authenticated";
+	const data = UPCOMING_EVENT_CONTENT_BANNER.find((v) => v.id == idParams);
 	if (!data) {
 		return redirect("/ticket");
 	}
@@ -47,25 +65,7 @@ export default function Page() {
 			<NavSectionDetailEvent />
 			<main>
 				<HeroDE {...data} />
-				<NullLoading
-					EquealComponent={
-						<>
-							<BluredWhenLogout>
-								{!isLogin && (
-									<PlaceholderBlurry className={"-translate-y-1/3"} />
-								)}
-								<HighlightDE arrayTeks={HIGHTLIGHT_TEXT_DE} />
-								<div className="container">
-									<ImportantInfo {...INFO_PENTING_DE} />
-								</div>
-								<ProtectedSectionDE isLogin={isLogin}>
-									<Divider className={"bg-[#F4F4F4]"} />
-									<PackageDE />
-								</ProtectedSectionDE>
-							</BluredWhenLogout>
-						</>
-					}
-				/>
+				<NullLoading EquealComponent={<DetailEvent />} />
 			</main>
 			<RootFooter />
 		</>

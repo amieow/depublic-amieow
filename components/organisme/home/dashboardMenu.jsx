@@ -2,17 +2,18 @@
 import Image from "next/image";
 import Typography from "@/components/atoms/ui/Typography";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 export default function DashboardMenu() {
 	const menu = [
 		{
 			icon: "/icon/ticket.svg",
 			title: "Ticket",
-			link: "",
+			link: "/ticket",
 		},
 		{
 			icon: "/icon/phone.svg",
 			title: "Registration",
-			link: "",
+			link: "/registration",
 		},
 		{
 			icon: "/icon/mouse-clicked.svg",
@@ -32,7 +33,8 @@ export default function DashboardMenu() {
 			</div>
 			<div className="w-full flex justify-between overflow-hidden px-4">
 				{menu.map((item, i) => (
-					<div
+					<Link
+						href={item.link}
 						className="flex items-center flex-col h-[119px] justify-between"
 						key={i}>
 						<Image
@@ -43,7 +45,7 @@ export default function DashboardMenu() {
 							alt={item.title}
 						/>
 						<Typography thick={"medium"}>{item.title}</Typography>
-					</div>
+					</Link>
 				))}
 			</div>
 			<div className="bg-surface-100 rounded-full flex items-center justify-center backdrop-blur-[20px] w-10 h-10 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 ">

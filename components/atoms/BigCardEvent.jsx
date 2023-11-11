@@ -3,18 +3,13 @@ import React from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import Image from "next/image";
 import Typography from "./ui/Typography";
-import { formatRupiah } from "@/utils/formater";
+import { formatRupiah, formatTanggal } from "@/utils/formater";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export function DisplayPlaceAndDateCard({
-	place,
-	day = "Day",
-	month = "MON TANGGAL",
-	className,
-}) {
+export function DisplayPlaceAndDateCard({ place, date, className }) {
 	return (
 		<div
 			className={cn(
@@ -29,7 +24,7 @@ export function DisplayPlaceAndDateCard({
 					height={20}
 				/>
 				<Typography
-					className="text-neutral-500"
+					className="text-neutral-500 overflow-clip"
 					size={"label2"}>
 					{place}
 				</Typography>
@@ -40,8 +35,10 @@ export function DisplayPlaceAndDateCard({
 			/>
 			<Typography
 				size={"label2"}
-				className="text-primary-500 shrink-0"
-				thick={"medium"}>{`${day}, ${month}`}</Typography>
+				className="text-primary-500 shrink-0 overflow-clip"
+				thick={"medium"}>
+				{formatTanggal(date)}
+			</Typography>
 		</div>
 	);
 }
@@ -60,7 +57,6 @@ function BigCardEvent({
 	const onClickCard = () => {
 		router.push(`/ticket/detail-event?id=${id}`);
 	};
-	const { day = "DAY", month = "MON TANGGAL" } = date || {};
 	return (
 		<Card
 			className={
@@ -79,8 +75,7 @@ function BigCardEvent({
 			<CardContent className={""}>
 				<DisplayPlaceAndDateCard
 					place={place}
-					day={day}
-					month={month}
+					date={date}
 				/>
 				<Typography
 					className="mb-1 text-primary-900 "
@@ -90,7 +85,7 @@ function BigCardEvent({
 				</Typography>
 				<Typography
 					size={"label1"}
-					className={"text-tertiary-300 mb-4"}>
+					className={"text-tertiary-300 mb-4 line-clamp-3"}>
 					{description}
 				</Typography>
 				<Typography

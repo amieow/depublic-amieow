@@ -12,6 +12,7 @@ const monsterat = Montserrat({
 export const metadata = {
 	title: "Depublic",
 	description: "Depublic ",
+	manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {

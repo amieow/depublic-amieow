@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, EffectCoverflow } from "swiper/modules";
+import { Pagination, EffectCoverflow, Autoplay } from "swiper/modules";
 import "swiper/css/pagination";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
+import "swiper/css/autoplay";
 import { BANNER_HERO_CONTENT } from "@/contents/bannerHeroContent";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,8 @@ export default function BannerHome() {
 		<section className="pt-10">
 			<Swiper
 				effect={"coverflow"}
-				modules={[Pagination, EffectCoverflow]}
+				modules={[Pagination, EffectCoverflow, Autoplay]}
+				autoplay={{ delay: 2000 }}
 				pagination={{ clickable: true }}
 				direction="horizontal"
 				className=" swiper_container banner_container   "
@@ -23,8 +25,8 @@ export default function BannerHome() {
 				grabCursor={true}
 				slidesPerView={"auto"}
 				centeredSlides={true}
+				spaceBetween={5}
 				coverflowEffect={{
-					scale: 1,
 					rotate: 0,
 					stretch: 0,
 					depth: 100,
@@ -33,12 +35,12 @@ export default function BannerHome() {
 				}}>
 				{BANNER_HERO_CONTENT.map((item, i) => (
 					<SwiperSlide
-						className="w-[451px] max-sm:scale-90"
+						className="max-sm:scale-90"
 						onClick={() => router.push(`/ticket/detail-event?id=${item.id}`)}
 						key={i}>
 						<Image
-							width={451}
-							height={279}
+							width={350}
+							height={300}
 							alt=""
 							src={item.image}
 						/>

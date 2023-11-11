@@ -2,23 +2,27 @@
 import Typography from "@/components/atoms/ui/Typography";
 import React, { useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import { LoginForm } from "@/components/organisme/login/LoginForm";
-import { signUpSchema } from "@/utils/validates/login";
 import { signIn } from "next-auth/react";
+import { signInSchema } from "@/utils/validates/login";
 const LoadingModal = dynamic(() => import("@/components/atoms/LoadingModal"), {
 	ssr: false,
 });
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const queryParams = useSearchParams();
+	const callbackUrlParams = queryParams.get("callbackUrl");
+	const callbackUrl =
+		(callbackUrlParams.startsWith("/") || callbackUrlParams.startsWith("http")
+			? callbackUrlParams
+			: undefined) || "/";
 	const onValid = async (data) => {
 		setOpen(true);
 		await new Promise((resolve) => setTimeout(resolve, 1500));
 		await signIn("credentials", {
-			username: data.username,
-			password: data.password,
+			...data,
 			redirect: true,
 			callbackUrl,
 		});
@@ -30,31 +34,31 @@ export default function Page() {
 				<Typography
 					size={"subheading2"}
 					thick={"medium"}>
-					Register for the better experience
+					Welcome back!
 				</Typography>
 				<LoginForm
 					onValid={onValid}
-					page="signup"
-					ArrayObjectZod={Object.keys(signUpSchema.keyof().Values)}
-					zod={signUpSchema}
+					page="signin"
+					ArrayObjectZod={Object.keys(signInSchema.keyof().Values)}
+					zod={signInSchema}
 				/>
 			</div>
 			<Typography
 				className="text-neutral-300 text-center"
 				thick={"medium"}>
-				Have an Account?{" "}
+				Don’t have an Account?{" "}
 				<Link
 					href={{
-						pathname: "/login/signin",
+						pathname: "/signup",
 						query: {
-							callbackUrl: queryParams.get("callbackUrl") || "/",
+							callbackUrlParams,
 						},
 					}}>
 					<Typography
 						className="text-primary-500"
 						thick={"bolder"}
 						as="span">
-						Login
+						Register
 					</Typography>
 				</Link>
 			</Typography>

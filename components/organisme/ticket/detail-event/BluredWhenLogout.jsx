@@ -30,10 +30,10 @@ export const PlaceholderBlurry = ({ className }) => {
 				</div>
 				<div className="flex gap-[11px] items-center">
 					<Button variant={"outline"}>
-						<Link href={"/login/signin"}>Sign In</Link>
+						<Link href={"/signin"}>Sign In</Link>
 					</Button>
 					<Button>
-						<Link href={"/login/signup"}>Sign Up</Link>
+						<Link href={"/signup"}>Sign Up</Link>
 					</Button>
 				</div>
 			</section>

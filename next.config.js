@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const withPWA = require("next-pwa")({
+	dest: "public",
+});
+
+const nextConfig = withPWA({
 	webpack(config) {
 		config.module.rules.push({
 			test: /\.svg$/i,
@@ -7,6 +11,12 @@ const nextConfig = {
 		});
 		return config;
 	},
-};
+	pwa: {
+		dest: "public",
+		register: true,
+		skipWaiting: true,
+		disable: process.env.NODE_ENV !== "production",
+	},
+});
 
 module.exports = nextConfig;

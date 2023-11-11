@@ -23,7 +23,7 @@ const LoginComponent = () => {
 export default function RootHeader() {
 	const path = usePathname();
 	const params = useSearchParams();
-	const isLoginedPage = path.includes("login");
+	const isLoginedPage = ["/signin", "/signup"].includes(path);
 	return (
 		<header className=" bg-[#ffffff] shadow-lg">
 			<div className="flex container shadow-lg justify-between h-[100px] items-center">

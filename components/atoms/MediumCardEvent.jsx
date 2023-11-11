@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { DisplayPlaceAndDateCard } from "./BigCardEvent";
 import { formatRupiah } from "@/utils/formater";
 
-export default function SmallCardEvent({
+export default function MediumCardEvent({
 	image,
 	date,
 	price,
@@ -22,7 +22,6 @@ export default function SmallCardEvent({
 	const onClickCard = () => {
 		router.push(`/ticket/detail-event?id=${id}`);
 	};
-	const { day = "DAY", month = "MON TANGGAL" } = date || {};
 	return (
 		<Card
 			className={
@@ -41,8 +40,7 @@ export default function SmallCardEvent({
 			<CardContent className={""}>
 				<DisplayPlaceAndDateCard
 					place={place}
-					day={day}
-					month={month}
+					date={date}
 					className={"gap-[6px]"}
 				/>
 				<Typography
@@ -53,7 +51,7 @@ export default function SmallCardEvent({
 				</Typography>
 				<Typography
 					size={"label1"}
-					className={"text-tertiary-300 mb-4"}>
+					className={"text-tertiary-300 mb-4 line-clamp-3"}>
 					{description}
 				</Typography>
 				<Typography

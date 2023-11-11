@@ -1,10 +1,11 @@
 "use client";
 import FilterAllEvent from "@/components/atoms/FilterAllEvent";
-import SmallCardEvent from "@/components/atoms/SmallCardEvent";
+import MediumCardEvent from "@/components/atoms/MediumCardEvent";
 import Typography from "@/components/atoms/ui/Typography";
 import RootFooter from "@/components/organisme/RootFooter";
 import TopMenu from "@/components/organisme/ticket/TopMenu";
-import { UPCOMING_EVENT_CONTENT } from "@/contents/UpcomingEventContent";
+import { UPCOMING_EVENT_CONTENT_BANNER } from "@/contents/UpcomingEventContent";
+
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -12,9 +13,8 @@ export default function Page() {
 	const params = useSearchParams();
 	const queryParmas = params.get("q") || "";
 	const data = [
-		...UPCOMING_EVENT_CONTENT,
-		...UPCOMING_EVENT_CONTENT,
-		...UPCOMING_EVENT_CONTENT.slice(1),
+		...UPCOMING_EVENT_CONTENT_BANNER,
+		...UPCOMING_EVENT_CONTENT_BANNER,
 	];
 	return (
 		<>
@@ -41,7 +41,7 @@ export default function Page() {
 							className="flex flex-wrap gap-x-4 gap-y-6 justify-between"
 							id="event">
 							{data.map((item, index) => (
-								<SmallCardEvent
+								<MediumCardEvent
 									{...item}
 									key={index}
 								/>

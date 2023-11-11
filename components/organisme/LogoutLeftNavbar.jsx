@@ -14,7 +14,7 @@ const LogoutComponent = ({ path }) => {
 			<Button asChild>
 				<Link
 					href={{
-						pathname: "/login/signup",
+						pathname: "/signup",
 						query: {
 							callbackUrl,
 						},
