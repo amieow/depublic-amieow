@@ -40,7 +40,7 @@ schedules that suit their needs and pay for tickets online. Additionally, the
 website is expected to provide accurate and up-to-date information about ongoing
 events.
 
-## 🧐 Folder Structure <a id="folder_structure" name = "about"></a>
+## 📁 Folder Structure <a id="folder_structure" name = "about"></a>
 
 1. **app** (main application router) :
    - This folder contains the main application router.
